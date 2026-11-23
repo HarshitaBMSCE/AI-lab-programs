@@ -1,0 +1,30 @@
+def vacuum_agent(location, room):
+    print("Current Location:", location)
+
+    if room[location] == "Dirty":
+        print("Room is Dirty. Cleaning...")
+        room[location] = "Clean"
+    else:
+        print("Room is already Clean.")
+
+    if location == "A":
+        location = "B"
+    else:
+        location = "A"
+
+    return location
+
+
+# Initial room conditions
+room = {
+    "A": "Dirty",
+    "B": "Dirty"
+}
+
+location = "A"
+
+# Agent execution
+for i in range(4):
+    location = vacuum_agent(location, room)
+    print("Room Status:", room)
+    print("------------------")
