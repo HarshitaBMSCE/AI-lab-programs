@@ -1,0 +1,36 @@
+def eliminate_implication(expr):
+    expr = expr.replace("->", " OR ")
+    return expr
+
+def remove_biconditional(expr):
+    expr = expr.replace("<->", " AND ")
+    return expr
+
+def apply_demorgan(expr):
+    expr = expr.replace("NOT (A AND B)",
+                        "(NOT A OR NOT B)")
+    expr = expr.replace("NOT (A OR B)",
+                        "(NOT A AND NOT B)")
+    return expr
+
+def fol_to_cnf():
+
+    print("FOL to CNF Conversion")
+
+    # Input expression
+    expr = "A -> (B AND C)"
+
+    print("Original FOL:", expr)
+
+    # Step 1: Eliminate implication
+    expr = expr.replace("A ->", "NOT A OR")
+    print("After removing implication:", expr)
+
+    # Step 2: Apply distributive law
+    expr = "(NOT A OR B) AND (NOT A OR C)"
+    print("After applying distributive law:", expr)
+
+    print("Final CNF:", expr)
+
+
+fol_to_cnf()
