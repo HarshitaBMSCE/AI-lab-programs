@@ -1,0 +1,43 @@
+def forward_chaining(facts, rules, goal):
+
+    while True:
+        new_fact_added = False
+
+        for conditions, conclusion in rules:
+
+            # Check whether all conditions are true
+            if all(condition in facts for condition in conditions):
+
+                if conclusion not in facts:
+                    facts.add(conclusion)
+
+                    print("New Fact:", conclusion)
+
+                    new_fact_added = True
+
+        # Check goal
+        if goal in facts:
+            return True
+
+        if not new_fact_added:
+            return False
+
+
+# Initial Facts
+facts = {"A", "B"}
+
+# Rules
+rules = [
+    (["A", "B"], "C"),
+    (["C"], "D"),
+    (["D"], "E")
+]
+
+# Goal
+goal = "E"
+
+# Execute Forward Chaining
+if forward_chaining(facts, rules, goal):
+    print("\nGoal Reached:", goal)
+else:
+    print("\nGoal Not Reached")
