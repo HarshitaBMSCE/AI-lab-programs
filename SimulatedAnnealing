@@ -1,0 +1,46 @@
+import random
+import math
+
+def objective(x):
+    return x * x
+
+def simulated_annealing():
+
+    current = random.randint(-10, 10)
+    best = current
+
+    temperature = 100
+    cooling_rate = 0.95
+
+    while temperature > 0.1:
+
+        next_state = current + random.choice([-1, 1])
+
+        current_cost = objective(current)
+        next_cost = objective(next_state)
+
+        # Calculate difference
+        delta = next_cost - current_cost
+
+        if delta < 0:
+            current = next_state
+
+        else:
+            probability = math.exp(-delta / temperature)
+
+            if random.random() < probability:
+                current = next_state
+
+        if objective(current) < objective(best):
+            best = current
+
+        temperature *= cooling_rate
+
+    return best
+
+
+# Execute algorithm
+result = simulated_annealing()
+
+print("Best Solution:", result)
+print("Minimum Value:", objective(result))
