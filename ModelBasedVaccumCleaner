@@ -1,0 +1,64 @@
+class VacuumCleaner:
+    def __init__(self):
+        self.location = 'A'
+
+        # Internal model of the environment
+        self.model = {
+            'A': 'Unknown',
+            'B': 'Unknown'
+        }
+
+    def perceive(self, environment):
+        # Update internal model
+        self.model[self.location] = environment[self.location]
+
+    def act(self, environment):
+        self.perceive(environment)
+
+        print("Current Location:", self.location)
+
+        if self.model[self.location] == 'Dirty':
+            print("Action: Suck")
+            environment[self.location] = 'Clean'
+            self.model[self.location] = 'Clean'
+
+        elif 'Dirty' in self.model.values():
+            if self.location == 'A':
+                self.location = 'B'
+            else:
+                self.location = 'A'
+
+            print("Action: Move")
+
+        elif 'Unknown' in self.model.values():
+            if self.location == 'A':
+                self.location = 'B'
+            else:
+                self.location = 'A'
+
+            print("Action: Move")
+
+        else:
+            print("Both rooms are clean!")
+            return False
+
+        print("Internal Model:", self.model)
+        print("----------------------")
+        return True
+
+
+# Environment
+environment = {
+    'A': 'Dirty',
+    'B': 'Dirty'
+}
+
+# Create agent
+agent = VacuumCleaner()
+
+# Run agent
+for i in range(10):
+    if not agent.act(environment):
+        break
+
+print("Final Environment:", environment)
