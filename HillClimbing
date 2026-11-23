@@ -1,0 +1,32 @@
+def objective(x):
+    return -(x - 5) ** 2 + 25
+
+def hill_climbing():
+
+    current = 0
+
+    while True:
+
+        # Generate neighbors
+        neighbors = [current - 1, current + 1]
+
+        # Find the best neighbor
+        best = max(neighbors, key=objective)
+
+        # Check improvement
+        if objective(best) <= objective(current):
+            break
+
+        current = best
+
+        print("Current State:", current)
+        print("Value:", objective(current))
+
+    return current
+
+
+# Execute Hill Climbing
+result = hill_climbing()
+
+print("\nBest Solution:", result)
+print("Maximum Value:", objective(result))
